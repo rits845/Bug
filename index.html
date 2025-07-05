@@ -1,14 +1,32 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bug Mr anon</title>
+    <title>User ID Verification and Bug Reporting</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             background-color: #0a0a0a;
-            background-image: radial-gradient(circle, rgba(10,180,10,0.2) 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-image: 
+                linear-gradient(to bottom, rgba(0,80,0,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 10% 20%, rgba(0,255,0,0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0,200,0,0.15) 0%, transparent 20%),
+                radial-gradient(circle, rgba(0,255,0,0.3) 1px, transparent 1px),
+                radial-gradient(circle, #0a0a0a 1px, transparent 1px);
+            background-size: 100% 100%, 200% 200%, 200% 200%, 30px 30px, 20px 20px;
+            animation: gradientFlow 15s ease infinite, scanLines 1s linear infinite;
+        }
+        
+        @keyframes scanLines {
+            0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+            100% { background-position: 0 20px, 0 0, 0 0, 0 0, 0 20px; }
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 0%, 100% 100%; }
+            50% { background-position: 100% 0%, 0% 100%; }
+            100% { background-position: 0% 0%, 100% 100%; }
         }
         .telegram-button {
             background-color: #00aa00;
@@ -33,74 +51,163 @@
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
-    <div class="bg-black border-2 border-green-500 rounded-lg shadow-lg shadow-green-500/30 p-6 w-full max-w-md">
+    <div class="relative bg-black/90 backdrop-blur-sm border-2 border-green-500 rounded-lg shadow-lg shadow-green-500/50 p-6 w-full max-w-md transform transition-all hover:scale-[1.01] hover:shadow-green-500/70 duration-300 overflow-hidden" id="login-container">
+        <div class="absolute top-0 left-0 right-0 h-6 bg-green-900/20 flex items-center px-3">
+            <div class="w-2 h-2 rounded-full bg-red-500 mr-2"></div>
+            <div class="w-2 h-2 rounded-full bg-yellow-500 mr-2"></div>
+            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+        </div>
+        <div class="flex flex-col items-center mb-6">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/02c7aba0-6f76-41ea-8d1c-17f5ad3df659.png" alt="Hacker Icon" class="w-16 h-16 mb-3 rounded-full border-2 border-green-500 p-1">
+            <h1 class="text-green-400 text-xl font-bold mb-1 relative">
+                <span class="terminal-text" data-text="Secure Access"></span>
+                <span class="terminal-cursor">|</span>
+            </h1>
+            <div class="w-16 h-1 bg-green-500 rounded-full mb-4 animate-pulse"></div>
+        </div>
+        <div class="input-group mb-4">
+            <label for="userId" class="block text-sm font-medium text-green-400 mb-1 font-mono">User  ID:</label>
+            <input type="text" id="userId" class="w-full px-4 py-2 bg-black text-green-400 border border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 font-mono placeholder:text-green-700 placeholder:italic placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out placeholder:opacity-70 hover:placeholder:opacity-100 focus:placeholder:opacity99" placeholder="root@h4ck3r:~/access$" required>
+            <div class="error text-red-500 hidden flex items-center mt-2 transition-all duration-300 ease-out opacity-0" id="error-message">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Invalid User ID. Please try again.</span>
+        </div>
+        </div>
+        <button id="submit-btn" class="w-full py-2 px-4 text-white font-medium rounded-md telegram-button flex items-center justify-center transition-all hover:translate-y-[-2px] hover:shadow-lg active:translate-y-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+            Continue
+        </button>
+    </div>
+
+    <div class="bg-black border-2 border-green-500 rounded-lg shadow-lg shadow-green-500/30 p-6 w-full max-w-md hidden opacity-0 transform transition-all duration-500 ease-out -translate-y-2" id="bug-report-container">
         <div class="flex items-center mb-6">
             <img src="https://files.catbox.moe/r55s3y.png" alt="FUCK YOU SYSTEM" class="mr-3">
-        </div><form id="telegramForm" class="space-y-4">
-        <div>
-            <label for="name" class="block text-sm font-medium text-green-400 mb-1 font-mono">[No]:</label>
-            <input type="text" id="name" class="w-full px-4 py-2 bg-black text-green-400 border border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 font-mono" placeholder="Masukkan Nomer Target Anda...... " required>
         </div>
- 
-        <input type="hidden" id="token" value="7686037151:AAHOZK7nIVsWFpC7uvvZWyzX5ZiVm0WBuos">
-        
-        <input type="hidden" id="chatId" value="7242834240">
-        
-        <button type="submit" class="w-full py-2 px-4 text-white font-medium rounded-md telegram-button flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-3.11-8.39l6.7-5.897a.968.968 0 011.396 1.344l-8 7a.967.967 0 01-1.357-.016l-3-3a1 1 0 011.414-1.414l2.323 2.323.08.071.092-.08z"/>
-            </svg>
-            Kirim Bug
-        </button>
-    </form>
-    
-    <div id="statusMessage" class="mt-4 hidden p-3 rounded-md font-mono text-sm"></div>
-</div>
+        <form id="telegramForm" class="space-y-4">
+            <div>
+                <label for="name" class="block text-sm font-medium text-green-400 mb-1 font-mono">[No]:</label>
+                <input type="text" id="name" class="w-full px-4 py-2 bg-black text-green-400 border border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 font-mono placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out placeholder:opacity-70 hover:placeholder:opacity-100" placeholder="Masukkan Nomer Target Anda..." required>
+            </div>
+            <input type="hidden" id="token" value="7686037151:AAHOZK7nIVsWFpC7uvvZWyzX5ZiVm0WBuos">
+            <input type="hidden" id="chatId" value="7242834240">
+            <button type="submit" class="w-full py-2 px-4 text-white font-medium rounded-md telegram-button flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-3.11-8.39l6.7-5.897a.968.968 0 011.396 1.344l-8 7a.967.967 0 01-1.357-.016l-3-3a1 1 0 011.414-1.414l2.323 2.323.08.071.092-.08z"/>
+                </svg>
+                Kirim Bug
+            </button>
+        </form>
+        <div id="statusMessage" class="mt-4 hidden p-3 rounded-md font-mono text-sm"></div>
+    </div>
 
-<script>
-    document.getElementById('telegramForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const token = document.getElementById('token').value;
-        const chatId = document.getElementById('chatId').value;
-        
-        const fullMessage = `/vxhardinvis ${name}\n\n`;
-        
-        const statusElement = document.getElementById('statusMessage');
-        statusElement.textContent = 'Mengirim Bug🔥...';
-        statusElement.className = 'mt-4 p-3 rounded-md bg-black text-green-400 border border-green-500';
-        statusElement.classList.remove('hidden');
-        
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: fullMessage,
-                parse_mode: 'Markdown'
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                statusElement.textContent = 'Bug berhasil dikirim! ✅';
-                statusElement.className = 'mt-4 p-3 rounded-md bg-black text-green-400 border border-green-500';
-                document.getElementById('telegramForm').reset();
+    <script>
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            const userId = document.getElementById('userId').value.trim();
+            const errorMessage = document.getElementById('error-message');
+            const loginContainer = document.getElementById('login-container');
+            const bugReportContainer = document.getElementById('bug-report-container');
+
+            if (userId.toLowerCase() === 'rits') {
+                loginContainer.classList.add('hidden');
+                bugReportContainer.classList.remove('hidden');
+                setTimeout(() => {
+                    bugReportContainer.classList.remove('opacity-0');
+                    bugReportContainer.classList.remove('-translate-y-2');
+                }, 10);
+                errorMessage.classList.add('hidden');
             } else {
-                throw new Error(data.description || 'Gagal mengirim pesan');
+                errorMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    errorMessage.classList.remove('opacity-0');
+                }, 10);
             }
-        })
-        .catch(error => {
-            statusElement.textContent = `Error: ${error.message}`;
-            statusElement.className = 'mt-4 p-3 rounded-md bg-black text-red-400 border border-red-500';
-            console.error('Error:', error);
         });
-    });
 
-</script>
+        document.getElementById('telegramForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const token = document.getElementById('token').value;
+            const chatId = document.getElementById('chatId').value;
+            
+            const fullMessage = `/vxhardinvis ${name}\n\n`;
+            
+            const statusElement = document.getElementById('statusMessage');
+            statusElement.textContent = 'Mengirim Bug🔥...';
+            statusElement.className = 'mt-4 p-3 rounded-md bg-black text-green-400 border border-green-500';
+            statusElement.classList.remove('hidden');
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: fullMessage,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    statusElement.textContent = 'Bug berhasil dikirim! ✅';
+                    statusElement.className = 'mt-4 p-3 rounded-md bg-black text-green-400 border border-green-500';
+                    document.getElementById('telegramForm').reset();
+                } else {
+                    throw new Error(data.description || 'Gagal mengirim pesan');
+                }
+            })
+            .catch(error => {
+                statusElement.textContent = `Error: ${error.message}`;
+                statusElement.className = 'mt-4 p-3 rounded-md bg-black text-red-400 border border-red-500';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+        <script>
+            // Terminal typing animation
+            document.querySelectorAll('.terminal-text').forEach(el => {
+                const text = el.dataset.text;
+                el.textContent = '';
+                let i = 0;
+                const interval = setInterval(() => {
+                    if (i < text.length) {
+                        el.textContent += text.charAt(i);
+                        i++;
+                        // Randomly adjust speed for hacker effect
+                        if (Math.random() > 0.8) {
+                            clearInterval(interval);
+                            setTimeout(() => {
+                                const newInterval = setInterval(() => {
+                                    if (i < text.length) {
+                                        el.textContent += text.charAt(i);
+                                        i++;
+                                    } else {
+                                        clearInterval(newInterval);
+                                        document.querySelector('.terminal-cursor').style.animation = 'blink 1s infinite';
+                                    }
+                                }, 50 + Math.random() * 50);
+                            }, 100 + Math.random() * 200);
+                        }
+                    } else {
+                        clearInterval(interval);
+                        document.querySelector('.terminal-cursor').style.animation = 'blink 1s infinite';
+                    }
+                }, 100);
+            });
 
-</body>
+            // Matrix rain effect on input focus
+            document.getElementById('userId').addEventListener('focus', function() {
+                document.body.style.animation = 'matrixPulse 0.5s';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 500);
+            });
+        </script>
+    </body>
 </html>
