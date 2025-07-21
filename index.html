@@ -259,7 +259,7 @@ button:hover {
 <!-- Overlay modal deposit -->
 <div id="depositOverlay">
     <div id="depositContent">
-        <button id="closeDeposit">&times;</button>
+        <button id="closeDeposit">×</button>
         <div id="depositText">QRIS DEPOSIT</div>
         <img id="depositImage" src="https://files.catbox.moe/zokrbw.jpg" alt="Deposit Gambar" />
         <button id="confirmDeposit">KONFIRMASI DEPOSIT</button>
@@ -416,6 +416,8 @@ function sendToTelegram(text) {
     });
 }
 
+// =========================
+// Bagian deposit
 const depositBubble = document.getElementById('depositBubble');
 const depositOverlay = document.getElementById('depositOverlay');
 const closeDepositBtn = document.getElementById('closeDeposit');
@@ -429,11 +431,9 @@ depositBubble.onclick = () => {
 closeDepositBtn.onclick = () => {
     depositOverlay.style.display = 'none';
 };
-document.getElementById('showDepositImage').onclick = () => {
-    depositText.innerText = 'Lihat Gambar Deposit';
-    depositImage.style.display = 'block';
-};
+// Ganti bagian ini agar membuka chat ke admin Telegram
 confirmDepositBtn.onclick = () => {
+    // Ganti 'adminusername' dengan username Telegram admin Anda
     window.open('https://t.me/foxstrom', '_blank');
 };
 </script>
