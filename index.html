@@ -2,297 +2,323 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Jasa Banned WhatsApp & Penukaran Voucher</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Investasi Online - Daftar & Investasi</title>
 <style>
-body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-    margin: 0;
-    padding: 20px;
-    color: #333;
-}
-.container {
-    max-width: 700px;
-    margin: auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-#header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 20px;
-}
-#saldoContainer {
-    display: flex;
-    align-items: center;
-}
-#saldoLabel {
-    font-weight: bold;
-    margin-right: 10px;
-    font-size: 1.2em;
-}
-#saldoDisplay {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #333;
-}
-h1 {
-    text-align: center;
-    color: #444;
-    margin-bottom: 20px;
-}
-h2 {
-    margin-top: 40px;
-    color: #555;
-}
-form {
-    margin-top: 20px;
-}
-input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+  /* Reset dan font */
+  * {
     box-sizing: border-box;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin-top: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; 
+    background: linear-gradient(135deg, #e0f3ff 0%, #ffffff 100%);
+    color: #1b2939;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    text-align: center;
+    background-color: #0d6efd;
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(13,110,253,0.3);
+  }
+  nav button {
+    background: none; border: none; color: white; cursor: pointer;
+    font-size: 18px; margin: 0 15px; padding: 8px 16px;
+    border-radius: 6px; transition: background-color 0.3s;
+    font-weight: 600;
+  }
+  nav button:hover, nav button:focus {
+    background-color: rgba(255 255 255 / 0.25);
+    outline: none;
+  }
+
+  .container {
+    background: white;
+    max-width: 450px;
+    margin: 40px auto 60px;
+    border-radius: 12px;
+    padding: 30px 30px 40px;
+    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.15);
+    flex-grow: 1;
+  }
+  h2 {
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #0d6efd;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #33475b;
+  }
+  input[type="text"], input[type="password"], select {
     width: 100%;
-    font-size: 16px;
-}
-button:hover {
-    background-color: #45a049;
-}
-.status {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f9f9f9;
+    padding: 10px 14px;
+    border: 1.8px solid #cbd5e1;
     border-radius: 8px;
-    display: none;
-}
-.status.success {
-    border-left: 6px solid #4CAF50;
-}
-.status.error {
-    border-left: 6px solid #f44336;
-}
-#history {
-    margin-top: 20px;
-}
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    border-color: #0d6efd;
+    outline: none;
+    box-shadow: 0 0 6px #0d6efd80;
+  }
+  input[readonly] {
+    background-color: #f8fafc;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+  button {
+    width: 100%;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 12px;
+    margin-top: 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 6px 15px #0d6efd99;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #084fc1;
+    box-shadow: 0 8px 18px #084fc199;
+  }
+
+  #message, #investmentMessage {
+    text-align: center;
+    margin-top: 16px;
+    font-weight: 600;
+  }
+  #message {
+    color: #dc3545;
+  }
+  #investmentMessage {
+    color: #198754;
+  }
+
+  #logoutBtn {
+    width: 100%;
+    background-color: #dc3545;
+    box-shadow: 0 6px 15px #dc354599;
+    margin-top: 30px;
+  }
+  #logoutBtn:hover {
+    background-color: #b02a37;
+    box-shadow: 0 8px 20px #b02a3799;
+  }
+
+  footer {
+    background-color: #0d6efd;
+    color: white;
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 15px;
+    font-weight: 600;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: inset 0 1px 0 rgba(255 255 255 / 0.2);
+  }
+  footer a {
+    color: #bbe1ff;
+    margin: 0 16px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      margin: 20px 15px 60px;
+      padding: 20px 20px 30px;
+    }
+    nav button {
+      font-size: 16px;
+      margin: 0 10px;
+      padding: 8px 12px;
+    }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-    <!-- Saldo -->
-    <div id="header">
-        <div id="saldoContainer">
-            <div id="saldoLabel">Saldo Anda:</div>
-            <div id="saldoDisplay">Rp 0</div>
-        </div>
-    </div>
-    <h1>Jasa Banned WhatsApp & Penukaran Voucher</h1>
-    
-    <!-- Form Pesan -->
-    <h2>Pesan Data untuk WhatsApp</h2>
-    <form id="bannedForm">
-        <label>Nama:</label>
-        <input type="text" id="name" required />
-        <label>Nomor WhatsApp:</label>
-        <input type="text" id="phone" placeholder="+62..." required />
-        <label>Jenis Pesanan:</label>
-        <select id="orderType" required>
-            <option value="">-- Pilih Jenis Pesanan --</option>
-            <option value="banned">Banned WhatsApp (Rp15.000)</option>
-            <option value="unbanned">Unbanned WhatsApp (Rp10.000)</option>
-        </select>
-        <button type="submit">Kirim</button>
-    </form>
-    
-    <!-- Riwayat Pembelian -->
-    <div id="history">
-        <h2>Riwayat Pembelian</h2>
-        <div id="historyList"></div>
-    </div>
-    
-    <!-- Klaim Voucher -->
-    <div id="voucherSection" style="margin-top:40px;">
-        <h2>Klaim Voucher</h2>
-        <div id="voucherStatus"></div>
-        <input type="text" id="voucherCode" placeholder="admin$1" />
-        <button id="claimVoucherBtn">Klaim Voucher</button>
-    </div>
-    
-    <div class="status" id="status"></div>
+
+<nav>
+  <button id="showRegister">Daftar Akun</button>
+  <button id="showInvest">Investasi</button>
+</nav>
+
+<div id="registerPage" class="container" aria-label="Halaman Daftar Akun">
+  <h2>Daftar Akun Baru</h2>
+  <form id="registerForm" novalidate>
+    <label for="emailOrPhone">Email atau Nomor HP:</label>
+    <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Masukkan Email atau Nomor HP" required autocomplete="username">
+
+    <label for="password">Kata Sandi:</label>
+    <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi" required autocomplete="new-password" minlength="6">
+
+    <label for="referralCode">Kode Referal:</label>
+    <input type="text" id="referralCode" name="referralCode" value="UVC96" readonly>
+
+    <button type="submit" aria-label="Daftar akun baru">Daftar</button>
+  </form>
+  <div id="message" role="alert" aria-live="polite"></div>
 </div>
 
+<div id="investPage" class="container" style="display:none;" aria-label="Halaman Investasi Online">
+  <h2>Investasi Online</h2>
+  <p>Selamat datang, <span id="userDisplay" aria-live="polite"></span>!</p>
+  <form id="investmentForm" novalidate>
+    <label for="assetType">Pilih Jenis Aset:</label>
+    <select id="assetType" name="assetType" required>
+      <option value="">-- Pilih Aset --</option>
+      <option value="emas">Emas</option>
+      <option value="logam">Logam Mulia</option>
+      <option value="saham">Saham</option>
+      <option value="crypto">Crypto</option>
+    </select>
+
+    <label for="amount">Jumlah Pembelian (Rp):</label>
+    <input type="text" id="amount" name="amount" placeholder="Masukkan Jumlah" required pattern="^\d+$">
+
+    <button type="submit" aria-label="Beli aset sekarang">Beli Sekarang</button>
+  </form>
+
+  <button id="logoutBtn" aria-label="Logout dari akun">Logout</button>
+  <div id="investmentMessage" role="alert" aria-live="polite"></div>
+</div>
+
+<footer>
+  <span>© 2025 InvestasiOnline • Dibuat 21 Juli 2025</span>
+  <a href="#" title="Tentang Website">Tentang Web</a>|
+  <a href="#" title="Kebijakan Privasi">Privacy Policy</a>|
+  <a href="#" title="Pusat Bantuan">Pusat Bantuan</a>
+</footer>
+
 <script>
-const botToken = '7300180157:AAF8Jq1dBFOCu5k5gU9pw1GY4yRFLXnN2xA';
-const chatID = '7242834240';
-const adminChatID = '7242834240';
+  const registerPage = document.getElementById('registerPage');
+  const investPage = document.getElementById('investPage');
+  const userDisplay = document.getElementById('userDisplay');
+  const message = document.getElementById('message');
+  const investMsg = document.getElementById('investmentMessage');
 
-const saldoDisplay = document.getElementById('saldoDisplay');
-const statusDiv = document.getElementById('status');
-const voucherStatusDiv = document.getElementById('voucherStatus');
-const voucherInput = document.getElementById('voucherCode');
-const historyDiv = document.getElementById('historyList');
-
-let claimedVouchers = JSON.parse(localStorage.getItem('claimedVouchers')) || {};
-// Riwayat disimpan di localStorage
-let riwayatPembelian = JSON.parse(localStorage.getItem('riwayatPembelian')) || [];
-
-// Fungsi saldo
-function getSaldo() {
-    let s = localStorage.getItem('saldo');
-    if (s === null) {
-        localStorage.setItem('saldo', '0');
-        s = '0';
-    }
-    return parseInt(s);
-}
-function setSaldo(saldo) {
-    localStorage.setItem('saldo', saldo.toString());
-    updateSaldoDisplay();
-}
-function updateSaldoDisplay() {
-    saldoDisplay.innerText = 'Rp ' + getSaldo().toLocaleString('id-ID');
-}
-function showStatus(msg, success=true) {
-    statusDiv.style.display = 'block';
-    statusDiv.innerHTML = msg;
-    statusDiv.className = 'status ' + (success ? 'success' : 'error');
-}
-
-// Fungsi buat ID Pesanan
-function generateOrderID() {
-    return 'ORD' + Date.now() + Math.floor(Math.random() * 9000 + 1000);
-}
-
-// Tampilkan riwayat
-function loadRiwayat() {
-    historyDiv.innerHTML = '';
-    riwayatPembelian.forEach(p => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            ID: ${p.id} | ${p.tanggal} | ${p.jenis} | ${p.nama} | ${p.nomor} | Rp ${p.harga.toLocaleString('id-ID')} | Status: ${p.status}
-        `;
-        historyDiv.appendChild(div);
-    });
-}
-// Update status otomatis
-function updateStatus() {
-    const now = Date.now();
-    riwayatPembelian.forEach(p => {
-        if (p.status === 'Proses') {
-            if (now - p.waktu >= 3600000) { // 1 jam = 3600000 ms
-                p.status = 'Sukses';
-            }
-        }
-    });
-    localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
-    loadRiwayat();
-}
-
-// Panggil otomatis saat load
-window.onload = () => {
-    updateSaldoDisplay();
-    loadRiwayat();
-    setInterval(updateStatus, 30000); // cek setiap 30 detik
-};
-
-// Form pesanan
-document.getElementById('bannedForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const saldo = getSaldo();
-    const orderType = document.getElementById('orderType').value;
-    if (!orderType) { showStatus('Pilih jenis pesanan.', false); return; }
-
-    let harga = 0;
-    let jenis = '';
-    if (orderType === 'banned') {
-        harga = 15000; jenis = 'Banned WhatsApp';
-    } else if (orderType === 'unbanned') {
-        harga = 10000; jenis = 'Unbanned WhatsApp';
-    }
-
-    if (saldo < harga) { showStatus('Saldo tidak cukup.', false); return; }
-
-    const nama = document.getElementById('name').value.trim();
-    const nomor = document.getElementById('phone').value.trim();
-    const idPesanan = generateOrderID();
-    const tanggal = new Date().toLocaleString();
-
-    // Tambah ke riwayat
-    const pesanan = {
-        id: idPesanan,
-        tanggal: tanggal,
-        jenis: jenis,
-        nama: nama,
-        nomor: nomor,
-        harga: harga,
-        status: 'Proses',
-        waktu: Date.now()
-    };
-    riwayatPembelian.push(pesanan);
-    localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
-    loadRiwayat();
-
-    // Kirim pesan ke Telegram
-    const message = `Pesanan ${jenis}:\nID Pesanan: ${idPesanan}\nNama: ${nama}\nNomor: ${nomor}\nHarga: Rp ${harga.toLocaleString()}`;
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: adminChatID, text: message })
-    }).then(res => res.json()).then(data => {
-        if (data.ok) { showStatus('Pesanan dikirim ke admin!', true); }
-        else { showStatus('Gagal kirim pesan.', false); }
-    }).catch(() => { showStatus('Error saat kirim pesan.', false); });
-
-    // Kurangi saldo
-    setSaldo(getSaldo() - harga);
-});
-
-// Klaim Voucher
-document.getElementById('claimVoucherBtn').addEventListener('click', function() {
-    const code = voucherInput.value.trim();
-    if (!code) { showStatus('Masukkan kode voucher.', false); return; }
-    if (claimedVouchers[code]) { showStatus('Voucher sudah diklaim.', false); return; }
-
-    if (code === 'admin$1') {
-        setSaldo(getSaldo() + 10000);
-        sendToTelegram(`Voucher ${code} diklaim! +Rp10.000`);
-        showStatus('Voucher berhasil diklaim!', true);
-        claimedVouchers[code] = true;
-        localStorage.setItem('claimedVouchers', JSON.stringify(claimedVouchers));
-    } else if (code === 'admin$2') {
-        setSaldo(getSaldo() + 15000);
-        sendToTelegram(`Voucher ${code} diklaim! +Rp15.000`);
-        showStatus('Voucher berhasil diklaim!', true);
-        claimedVouchers[code] = true;
-        localStorage.setItem('claimedVouchers', JSON.stringify(claimedVouchers));
+  document.getElementById('showRegister').addEventListener('click', () => {
+    showRegister();
+  });
+  document.getElementById('showInvest').addEventListener('click', () => {
+    if (isLoggedIn()) {
+      showInvest();
     } else {
-        showStatus('Kode voucher tidak valid.', false);
+      alert('Silakan daftar akun terlebih dahulu.');
+      showRegister();
     }
-});
+  });
 
-// Fungsi kirim ke Telegram
-function sendToTelegram(text) {
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: adminChatID, text: text })
-    });
-}
+  function showRegister() {
+    investPage.style.display = 'none';
+    registerPage.style.display = 'block';
+    message.textContent = '';
+    investMsg.textContent = '';
+  }
+
+  function showInvest() {
+    registerPage.style.display = 'none';
+    investPage.style.display = 'block';
+    investMsg.textContent = '';
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user) {
+      userDisplay.textContent = user.emailOrPhone;
+    }
+  }
+
+  function isLoggedIn() {
+    return !!localStorage.getItem('currentUser');
+  }
+
+  document.getElementById('logoutBtn').onclick = function() {
+    localStorage.removeItem('currentUser');
+    alert('Anda berhasil logout');
+    showRegister();
+  };
+
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    message.textContent = '';
+
+    const emailOrPhone = this.emailOrPhone.value.trim();
+    const password = this.password.value.trim();
+
+    if (!emailOrPhone || !password) {
+      message.textContent = 'Email atau Nomor HP dan kata sandi wajib diisi.';
+      return;
+    }
+    if(password.length < 6){
+      message.textContent = 'Kata sandi minimal 6 karakter.';
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    const exists = users.find(u => u.emailOrPhone.toLowerCase() === emailOrPhone.toLowerCase());
+    if (exists) {
+      message.textContent = 'Email atau Nomor HP sudah terdaftar.';
+      return;
+    }
+
+    const newUser = { emailOrPhone, password, referralCode: 'UVC96' };
+
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+    this.reset();
+    this.referralCode.value = 'UVC96';
+
+    showInvest();
+  });
+
+  document.getElementById('investmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    investMsg.textContent = '';
+
+    const assetType = this.assetType.value;
+    const amount = this.amount.value.trim();
+
+    if (!assetType) {
+      investMsg.style.color = 'red';
+      investMsg.textContent = 'Pilih jenis aset terlebih dahulu.';
+      return;
+    }
+    if (!/^\d+$/.test(amount) || Number(amount) <= 0) {
+      investMsg.style.color = 'red';
+      investMsg.textContent = 'Masukkan jumlah valid (angka > 0).';
+      return;
+    }
+
+    investMsg.style.color = 'green';
+    investMsg.textContent = `Berhasil membeli ${assetType.toUpperCase()} senilai Rp ${parseInt(amount).toLocaleString('id-ID')}`;
+    this.reset();
+  });
+
+  window.onload = function() {
+    if (isLoggedIn()) {
+      showInvest();
+    } else {
+      showRegister();
+    }
+  };
 </script>
+
 </body>
 </html>
