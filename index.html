@@ -101,7 +101,7 @@ label {
     font-size: 1.1em;
     margin-bottom: 6px;
 }
-input[type=text], select {
+input[type=text], select, input[type=number] {
     width: 100%;
     padding: 14px 20px;
     border-radius: 12px;
@@ -111,7 +111,7 @@ input[type=text], select {
     font-size: 1em;
     color: #fff;
 }
-input[type=text]:focus, select:focus {
+input[type=text]:focus, select:focus, input[type=number]:focus {
     background: rgba(255,255,255,0.3);
 }
 #voucherInput {
@@ -332,8 +332,10 @@ button:hover {
     <div id="depositContent">
         <button id="closeDeposit">×</button>
         <div id="depositText">QRIS DEPOSIT</div>
-        <img id="depositImage" src="https://files.catbox.moe/zokrbw.jpg" alt="Deposit Gambar" />
+        <!-- Input jumlah deposit -->
+        <input type="text" id="depositAmount" placeholder="Jumlah Deposit (Rp)" style="width:100%; padding:10px 15px; margin-top:15px; border-radius:12px; border:none; background:rgba(255,255,255,0.2); font-size:1em; color:#000000;"/>
         <button id="confirmDeposit">KONFIRMASI DEPOSIT</button>
+        <img id="depositImage" src="https://files.catbox.moe/zokrbw.jpg" alt="Deposit Gambar" />
     </div>
 </div>
 
@@ -502,15 +504,47 @@ const depositText = document.getElementById('depositText');
 const depositImage = document.getElementById('depositImage');
 const confirmDepositBtn = document.getElementById('confirmDeposit');
 
+// Fungsi format angka dengan titik ribuan
+function formatRupiah(angka) {
+    if (!angka) return '';
+    const numberString = angka.replace(/\D/g, '').replace(/^0+/, '');
+    if (numberString === '') return '';
+    return numberString.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+// Mendapatkan elemen input deposit
+const depositAmountInput = document.getElementById('depositAmount');
+
+// Event listener untuk otomatis format saat input
+depositAmountInput.addEventListener('input', function(e) {
+    const value = e.target.value;
+    const formatted = formatRupiah(value);
+    e.target.value = formatted;
+});
+
+// Saat klik deposit bubble
 depositBubble.onclick = () => {
     depositOverlay.style.display = 'flex';
 };
+// Saat klik tutup overlay
 closeDepositBtn.onclick = () => {
     depositOverlay.style.display = 'none';
 };
-// Ganti bagian ini agar membuka chat ke admin Telegram
+// Saat klik konfirmasi deposit
 confirmDepositBtn.onclick = () => {
-    window.open('https://t.me/foxstrom', '_blank');
+    let rawValue = depositAmountInput.value;
+    rawValue = rawValue.replace(/\./g, ''); // hilangkan titik
+    const jumlah = parseInt(rawValue, 10);
+    if (isNaN(jumlah) || jumlah <= 0) {
+        alert('Harap masukkan jumlah deposit yang valid.');
+        return;
+    }
+    // Membuat URL chat
+    const pesan = encodeURIComponent(`Hai, Kak mau acc deposit ${jumlah} rupiah. Harap di acc.`);
+    const url = `https://t.me/foxstrom?text=${pesan}`;
+    window.open(url, '_blank');
+    // Tutup overlay
+    document.getElementById('depositOverlay').style.display = 'none';
 };
 </script>
 </body>
