@@ -17,7 +17,7 @@ body {
 h1 {
     text-align: center;
     font-size: 3em;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     letter-spacing: 3px;
     font-weight: bold;
     color: #ffd700;
@@ -52,6 +52,30 @@ h2 {
     50% {
         opacity: 0.7;
     }
+}
+
+/* Tambahkan styling untuk total user online */
+#userOnlineContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.2);
+    padding: 15px 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+}
+#userOnlineLabel {
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-right: 12px;
+}
+#userOnlineCount {
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #ffd700;
+    min-width: 50px;
+    text-align: center;
 }
 
 /* Sisa CSS tetap sama, tambahkan ke style kamu */
@@ -280,6 +304,11 @@ button:hover {
 </head>
 <body>
 <div class="container">
+    <!-- Total User Online -->
+    <div id="userOnlineContainer">
+        <div id="userOnlineLabel">Total User Online:</div>
+        <div id="userOnlineCount">0</div>
+    </div>
     <!-- Saldo -->
     <div id="header">
         <div id="saldoContainer">
@@ -357,6 +386,21 @@ const historyDiv = document.getElementById('historyList');
 let claimedVouchers = JSON.parse(localStorage.getItem('claimedVouchers')) || {};
 let riwayatPembelian = JSON.parse(localStorage.getItem('riwayatPembelian')) || [];
 
+// =========================
+// Total User Online - Inisialisasi
+const userOnlineCountElem = document.getElementById('userOnlineCount');
+
+// Fungsi simulasi update user online
+function updateUserOnlineCount() {
+    // Untuk simulasi, angka akan berubah secara acak antara 80-120
+    const newCount = Math.floor(Math.random() * 41) + 80; // 80-120
+    userOnlineCountElem.innerText = newCount;
+}
+
+// Panggil setiap 10 detik untuk simulasi
+setInterval(updateUserOnlineCount, 10000);
+
+// =========================
 // Fungsi saldo
 function getSaldo() {
     let s = localStorage.getItem('saldo');
