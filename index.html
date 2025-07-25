@@ -13,11 +13,11 @@ body {
     color: #fff;
 }
 
-/* Gaya judul utama dan subjudul dengan efek keren */
+/* Judul utama dan subjudul efek keren */
 h1 {
     text-align: center;
     font-size: 3em;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     letter-spacing: 3px;
     font-weight: bold;
     color: #ffd700;
@@ -36,7 +36,7 @@ h2 {
     animation: pulse 2s infinite;
 }
 
-/* Efek glow dan pulse keren untuk teks */
+/* Efek glow dan pulse untuk teks */
 @keyframes glow {
     from {
         text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ff8c00, 0 0 40px #ff6347;
@@ -54,31 +54,7 @@ h2 {
     }
 }
 
-/* Tambahkan styling untuk total user online */
-#userOnlineContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(255,255,255,0.2);
-    padding: 15px 25px;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    margin-bottom: 20px;
-}
-#userOnlineLabel {
-    font-weight: bold;
-    font-size: 1.4em;
-    margin-right: 12px;
-}
-#userOnlineCount {
-    font-weight: bold;
-    font-size: 1.4em;
-    color: #ffd700;
-    min-width: 50px;
-    text-align: center;
-}
-
-/* Sisa CSS tetap sama, tambahkan ke style kamu */
+/* Container dan styling form dan bagian lain */
 #header {
     display: flex;
     justify-content: center;
@@ -125,7 +101,7 @@ label {
     font-size: 1.1em;
     margin-bottom: 6px;
 }
-input[type=text], select, input[type=number] {
+input[type=text], select {
     width: 100%;
     padding: 14px 20px;
     border-radius: 12px;
@@ -135,34 +111,8 @@ input[type=text], select, input[type=number] {
     font-size: 1em;
     color: #fff;
 }
-input[type=text]:focus, select:focus, input[type=number]:focus {
+input[type=text]:focus, select:focus {
     background: rgba(255,255,255,0.3);
-}
-#voucherInput {
-    flex: 1;
-    min-width: 200px;
-    max-width: 300px;
-    padding: 10px 15px;
-    border-radius: 12px;
-    border: none;
-    background: rgba(255,255,255,0.2);
-    font-size: 1em;
-    color: #fff;
-}
-#claimVoucherBtn {
-    padding: 10px 20px;
-    border-radius: 12px;
-    border: none;
-    background-color: #ffd700;
-    color: #222;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-}
-#claimVoucherBtn:hover {
-    background-color: #e6c200;
-    transform: scale(1.02);
 }
 button {
     background-color: #ffd700;
@@ -202,9 +152,6 @@ button:hover {
 }
 #history {
     margin-top: 40px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 #history h2 {
     text-align: center;
@@ -232,6 +179,7 @@ button:hover {
 #historyList div:hover {
     background: rgba(255,255,255,0.2);
 }
+/* Bubble deposit dan overlay */
 #depositBubbleContainer {
     position: fixed;
     top: 50%;
@@ -304,11 +252,6 @@ button:hover {
 </head>
 <body>
 <div class="container">
-    <!-- Total User Online -->
-    <div id="userOnlineContainer">
-        <div id="userOnlineLabel">Total User Online:</div>
-        <div id="userOnlineCount">0</div>
-    </div>
     <!-- Saldo -->
     <div id="header">
         <div id="saldoContainer">
@@ -330,6 +273,7 @@ button:hover {
             <option value="">-- Pilih Jenis Pesanan --</option>
             <option value="banned">Banned Tinjau (Rp5.000)</option>
             <option value="unbanned">Banned Permanen (Rp10.000)</option>
+            <option value="gratis">Pesanan Gratis (Stok Harian 10)</option>
         </select>
         <button type="submit">Kirim</button>
     </form>
@@ -351,7 +295,7 @@ button:hover {
     </div>
 </div>
 
-<!-- Bubble deposit di kanan tengah -->
+<!-- Bubble deposit -->
 <div id="depositBubbleContainer">
     <div id="depositBubble">Deposit</div>
 </div>
@@ -361,7 +305,6 @@ button:hover {
     <div id="depositContent">
         <button id="closeDeposit">×</button>
         <div id="depositText">QRIS DEPOSIT</div>
-        <!-- Input jumlah deposit -->
         <input type="text" id="depositAmount" placeholder="Jumlah Deposit (Rp)" style="width:100%; padding:10px 15px; margin-top:15px; border-radius:12px; border:none; background:rgba(255,255,255,0.2); font-size:1em; color:#000000;"/>
         <button id="confirmDeposit">KONFIRMASI DEPOSIT</button>
         <img id="depositImage" src="https://files.catbox.moe/zokrbw.jpg" alt="Deposit Gambar" />
@@ -371,36 +314,51 @@ button:hover {
 <div class="status" id="status"></div>
 
 <script>
+// =========================
+// Variabel token dan admin
 const botToken = '7300180157:AAF8Jq1dBFOCu5k5gU9pw1GY4yRFLXnN2xA';
-// Ganti dengan ID Telegram Anda dan Admin
 const adminChatID = '7242834240'; // ID admin
 
 let lastUpdateId = 0;
-
 const saldoDisplay = document.getElementById('saldoDisplay');
 const statusDiv = document.getElementById('status');
 const voucherStatusDiv = document.getElementById('voucherStatus');
 const voucherInput = document.getElementById('voucherCode');
 const historyDiv = document.getElementById('historyList');
 
-let claimedVouchers = JSON.parse(localStorage.getItem('claimedVouchers')) || {};
 let riwayatPembelian = JSON.parse(localStorage.getItem('riwayatPembelian')) || [];
+let claimedVouchers = JSON.parse(localStorage.getItem('claimedVouchers')) || {};
 
-// =========================
-// Total User Online - Inisialisasi
-const userOnlineCountElem = document.getElementById('userOnlineCount');
+// Stok harian gratis
+let stockGratisHarian = parseInt(localStorage.getItem('stockGratisHarian')) || 10;
 
-// Fungsi simulasi update user online
-function updateUserOnlineCount() {
-    // Untuk simulasi, angka akan berubah secara acak antara 80-120
-    const newCount = Math.floor(Math.random() * 41) + 80; // 80-120
-    userOnlineCountElem.innerText = newCount;
+// Fungsi reset stok harian
+function resetStock() {
+    const today = new Date().toDateString();
+    const lastReset = localStorage.getItem('lastResetDate');
+    if (lastReset !== today) {
+        stockGratisHarian = 10;
+        localStorage.setItem('stockGratisHarian', stockGratisHarian);
+        localStorage.setItem('lastResetDate', today);
+    } else {
+        const stok = localStorage.getItem('stockGratisHarian');
+        if (stok !== null) {
+            stockGratisHarian = parseInt(stok);
+        }
+    }
 }
 
-// Panggil setiap 10 detik untuk simulasi
-setInterval(updateUserOnlineCount, 10000);
+// Panggil reset stok saat load
+window.onload = () => {
+    resetStock();
+    updateSaldoDisplay();
+    loadRiwayat();
+    setInterval(updateStatus, 30000);
+    setInterval(getUpdates, 3000);
+    // Set value default di select ke kosong
+    document.getElementById('orderType').value = "";
+};
 
-// =========================
 // Fungsi saldo
 function getSaldo() {
     let s = localStorage.getItem('saldo');
@@ -448,89 +406,7 @@ function updateStatus() {
     loadRiwayat();
 }
 
-window.onload = () => {
-    updateSaldoDisplay();
-    loadRiwayat();
-    setInterval(updateStatus, 30000);
-    setInterval(getUpdates, 3000);
-};
-
-document.getElementById('bannedForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const saldo = getSaldo();
-    const orderType = document.getElementById('orderType').value;
-    if (!orderType) { showStatus('Pilih jenis pesanan.', false); return; }
-
-    let harga = 0;
-    let jenis = '';
-    if (orderType === 'banned') {
-        harga = 5000; // Rp5.000
-        jenis = 'Banned WhatsApp';
-    } else if (orderType === 'unbanned') {
-        harga = 10000; // Rp10.000
-        jenis = 'Unbanned WhatsApp';
-    }
-
-    if (saldo < harga) { showStatus('Saldo tidak cukup.', false); return; }
-
-    const nama = document.getElementById('name').value.trim();
-    const nomor = document.getElementById('phone').value.trim();
-    const idPesanan = generateOrderID();
-    const tanggal = new Date().toLocaleString();
-
-    const pesanan = {
-        id: idPesanan,
-        tanggal: tanggal,
-        jenis: jenis,
-        nama: nama,
-        nomor: nomor,
-        harga: harga,
-        status: 'Proses',
-        waktu: Date.now()
-    };
-    riwayatPembelian.push(pesanan);
-    localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
-    loadRiwayat();
-
-    const message = `Pesanan ${jenis}:\nID Pesanan: ${idPesanan}\nNama: ${nama}\nNomor: ${nomor}\nHarga: Rp ${harga.toLocaleString()}`;
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: adminChatID, text: message })
-    }).then(res => res.json()).then(data => {
-        if (data.ok) { showStatus('Pesanan dikirim ke admin!', true); }
-        else { showStatus('Gagal kirim pesan.', false); }
-    }).catch(() => { showStatus('Error saat kirim pesan.', false); });
-
-    setSaldo(getSaldo() - harga);
-});
-
-document.getElementById('claimVoucherBtn').addEventListener('click', function() {
-    const code = voucherInput.value.trim();
-    if (!code) { showStatus('Masukkan kode voucher.', false); return; }
-    if (claimedVouchers[code]) { showStatus('Voucher sudah diklaim.', false); return; }
-
-    // Daftar voucher baru dari 3$ sampai 5$
-    const voucherRewards = {
-        'IDR1$': 6000,
-        'IDR2$': 10000,
-        'IDR3$': 1000,
-        'IDR4$': 1000,
-        'IDR5$': 1000
-    };
-
-    if (voucherRewards.hasOwnProperty(code)) {
-        const tambahanSaldo = voucherRewards[code];
-        setSaldo(getSaldo() + tambahanSaldo);
-        sendToTelegram(`Voucher ${code} diklaim! +Rp${tambahanSaldo.toLocaleString()}`);
-        showStatus('Voucher berhasil diklaim!', true);
-        claimedVouchers[code] = true;
-        localStorage.setItem('claimedVouchers', JSON.stringify(claimedVouchers));
-    } else {
-        showStatus('Kode voucher tidak valid.', false);
-    }
-});
-
+// Kirim ke Telegram
 function sendToTelegram(text) {
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
@@ -540,56 +416,93 @@ function sendToTelegram(text) {
 }
 
 // =========================
-// Bagian deposit
-const depositBubble = document.getElementById('depositBubble');
-const depositOverlay = document.getElementById('depositOverlay');
-const closeDepositBtn = document.getElementById('closeDeposit');
-const depositText = document.getElementById('depositText');
-const depositImage = document.getElementById('depositImage');
-const confirmDepositBtn = document.getElementById('confirmDeposit');
+// Pesanan normal
+document.getElementById('bannedForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    try {
+        const saldo = getSaldo();
+        const orderType = document.getElementById('orderType').value;
+        if (!orderType) { showStatus('Pilih jenis pesanan.', false); return; }
 
-// Fungsi format angka dengan titik ribuan
-function formatRupiah(angka) {
-    if (!angka) return '';
-    const numberString = angka.replace(/\D/g, '').replace(/^0+/, '');
-    if (numberString === '') return '';
-    return numberString.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
+        let harga = 0;
+        let jenis = '';
 
-// Mendapatkan elemen input deposit
-const depositAmountInput = document.getElementById('depositAmount');
+        if (orderType === 'banned') {
+            harga = 5000;
+            jenis = 'Banned WhatsApp';
+        } else if (orderType === 'unbanned') {
+            harga = 10000;
+            jenis = 'Unbanned WhatsApp';
+        } else if (orderType === 'gratis') {
+            // Cek stok
+            if (stockGratisHarian <= 0) {
+                alert('Stok pesanan gratis habis hari ini.');
+                return;
+            }
+            // Kurangi stok dan update
+            stockGratisHarian -= 1;
+            localStorage.setItem('stockGratisHarian', stockGratisHarian);
+            localStorage.setItem('lastResetDate', new Date().toDateString());
 
-// Event listener untuk otomatis format saat input
-depositAmountInput.addEventListener('input', function(e) {
-    const value = e.target.value;
-    const formatted = formatRupiah(value);
-    e.target.value = formatted;
-});
+            // Kirim info ke admin
+            const pesananID = generateOrderID();
+            const pesanAdmin = `Pesanan Gratis:\nID: ${pesananID}\nJenis: Pesanan Gratis\nWaktu: ${new Date().toLocaleString()}\nStok tersisa hari ini: ${stockGratisHarian}`;
+            sendToTelegram(pesanAdmin);
 
-// Saat klik deposit bubble
-depositBubble.onclick = () => {
-    depositOverlay.style.display = 'flex';
-};
-// Saat klik tutup overlay
-closeDepositBtn.onclick = () => {
-    depositOverlay.style.display = 'none';
-};
-// Saat klik konfirmasi deposit
-confirmDepositBtn.onclick = () => {
-    let rawValue = depositAmountInput.value;
-    rawValue = rawValue.replace(/\./g, ''); // hilangkan titik
-    const jumlah = parseInt(rawValue, 10);
-    if (isNaN(jumlah) || jumlah <= 0) {
-        alert('Harap masukkan jumlah deposit yang valid.');
-        return;
+            // Tambahkan ke riwayat sebagai sukses
+            const pesanan = {
+                id: pesananID,
+                tanggal: new Date().toLocaleString(),
+                jenis: 'Gratis Pesanan',
+                nama: document.getElementById('name').value.trim(),
+                nomor: document.getElementById('phone').value.trim(),
+                harga: 0,
+                status: 'Sukses',
+                waktu: Date.now()
+            };
+            riwayatPembelian.push(pesanan);
+            localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
+            loadRiwayat();
+            showStatus('Pesanan gratis berhasil dibuat!', true);
+            return;
+        }
+
+        // Untuk pesanan bayar
+        if (saldo < harga) { showStatus('Saldo tidak cukup.', false); return; }
+
+        const nama = document.getElementById('name').value.trim();
+        const nomor = document.getElementById('phone').value.trim();
+        const idPesanan = generateOrderID();
+        const tanggal = new Date().toLocaleString();
+
+        const pesanan = {
+            id: idPesanan,
+            tanggal: tanggal,
+            jenis: jenis,
+            nama: nama,
+            nomor: nomor,
+            harga: harga,
+            status: 'Proses',
+            waktu: Date.now()
+        };
+        riwayatPembelian.push(pesanan);
+        localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
+        loadRiwayat();
+
+        // Kirim ke admin
+        const message = `Pesanan ${jenis}:\nID: ${idPesanan}\nNama: ${nama}\nNomor: ${nomor}\nHarga: Rp ${harga.toLocaleString()}`;
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: adminChatID, text: message })
+        });
+        // Kurangi saldo
+        setSaldo(getSaldo() - harga);
+    } catch(e) {
+        console.error('Error saat pesanan:', e);
+        showStatus('Terjadi error, silakan coba lagi.', false);
     }
-    // Membuat URL chat
-    const pesan = encodeURIComponent(`Hai, Kak mau acc deposit ${jumlah} rupiah. Harap di acc.`);
-    const url = `https://t.me/foxstrom?text=${pesan}`;
-    window.open(url, '_blank');
-    // Tutup overlay
-    document.getElementById('depositOverlay').style.display = 'none';
-};
+});
 </script>
 </body>
 </html>
